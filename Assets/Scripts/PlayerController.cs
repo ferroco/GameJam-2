@@ -11,6 +11,12 @@ public class TilePlayerController : MonoBehaviour
 
     private bool isMoving = false;
     private Vector2 input;
+    private Animator animator;
+
+    private void Awake()
+    {
+        animator = GetComponent<Animator>();
+    }
 
     void Update()
     {
@@ -21,6 +27,8 @@ public class TilePlayerController : MonoBehaviour
 
             if (input != Vector2.zero)
             {
+                animator.SetFloat("moveX", input.x);
+                animator.SetFloat("moveY", input.y);
                 Vector3 destination = transform.position + new Vector3(input.x, input.y, 0f) * tileSize;
 
                 // Check for pushable object
@@ -38,11 +46,12 @@ public class TilePlayerController : MonoBehaviour
                 // Move player if there's no obstacle
                 if (!Physics2D.OverlapCircle(destination, 0.1f, obstacleLayer | pushableLayer))
                 {
-                    float speed = Input.GetKey(KeyCode.LeftShift) ? runSpeed : walkSpeed;
+                    float speed = Input.GetKey(KeyCode.X) ? runSpeed : walkSpeed;
                     StartCoroutine(MoveTo(destination, speed));
                 }
             }
         }
+        animator.SetBool("isMoving", isMoving);
     }
 
     IEnumerator PushAndMove(PushableObject obj, Vector2 dir, Vector3 playerDestination)
