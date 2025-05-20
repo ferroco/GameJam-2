@@ -47,7 +47,7 @@ public class UIManager : MonoBehaviour
         _gameSoundManager = gameObject.GetComponent<GameSoundManager>();
 
         isRuntimeOnMenu = true;
-        _musicSoundManager.SelectMusicToPlay(0);
+        _musicSoundManager.SelectMusicToPlay(1);
         _musicSoundManager.SetVolumeMusicPlayer(.2f);
         _musicSoundManager.PlayMusicPlayer();
     }
@@ -76,6 +76,11 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    public void SalirDelJuego()
+    {
+        Application.Quit();
+    }
+
     public void SiguienteNivel()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
@@ -83,11 +88,13 @@ public class UIManager : MonoBehaviour
 
     public void NuevoJuego()
     {
+        _musicSoundManager.SelectMusicToPlay(0);
         SceneManager.LoadScene(1);
     }
 
     public void MenuPrincipal()
     {
+        _musicSoundManager.SelectMusicToPlay(1);
         _UIContainerJuego.SetActive(false);
         _UIContainerMenu.SetActive(true);
         SceneManager.LoadScene(0);

@@ -5,7 +5,7 @@ public class MusicSoundManager : MonoBehaviour
 {
     [Header("Music")]
     [SerializeField] private UIMusicList[] _musicList;
-    private AudioSource _audioSource;
+    public AudioSource _audioSource;
     private AudioClip _musicOnPlay;
 
     void Start()
@@ -13,13 +13,15 @@ public class MusicSoundManager : MonoBehaviour
         _audioSource = GetComponent<AudioSource>();
     }
 
-    public  void SelectMusicToPlay(int musicIndex = 0)
+    public void SelectMusicToPlay(int musicIndex = 0)
     {
         AudioClip clip = _musicList[musicIndex].Music;
         _musicOnPlay = clip;
+        PlayMusicPlayer();
     }
     public void PlayMusicPlayer()
     {
+        _audioSource.Stop();
         _audioSource.clip = _musicOnPlay;
         _audioSource.loop = true;
         _audioSource.Play();
