@@ -19,6 +19,7 @@ public class PasarNivel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         if (energiaPuerta >= 2)
         {
             boxCollider.enabled = true;
