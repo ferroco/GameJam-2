@@ -1744,6 +1744,10 @@ PrefabInstance:
       propertyPath: m_ReferenceResolution.y
       value: 1080
       objectReference: {fileID: 0}
+    - target: {fileID: 3193212749165822813, guid: f118e0484f73ae04e91a826b1c3b311e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4441031157286768656, guid: f118e0484f73ae04e91a826b1c3b311e, type: 3}
       propertyPath: _soundList.Array.size
       value: 2
@@ -1800,11 +1804,19 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 5081623878129554067, guid: f118e0484f73ae04e91a826b1c3b311e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5145201339543654583, guid: f118e0484f73ae04e91a826b1c3b311e, type: 3}
       propertyPath: m_Name
       value: UICanvasManager
       objectReference: {fileID: 0}
     - target: {fileID: 5502930143411553361, guid: f118e0484f73ae04e91a826b1c3b311e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6365764038071389076, guid: f118e0484f73ae04e91a826b1c3b311e, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}

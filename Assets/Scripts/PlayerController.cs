@@ -9,6 +9,8 @@ public class TilePlayerController : MonoBehaviour
     public LayerMask obstacleLayer;
     public LayerMask pushableLayer;
 
+    public AudioSource footstepAudioSource;
+    public AudioSource pushAudioSource;
     private bool isMoving = false;
     private Vector2 input;
     private Animator animator;
@@ -71,6 +73,7 @@ public class TilePlayerController : MonoBehaviour
                 PushableObject po = pushable.GetComponent<PushableObject>();
                 if (po != null && po.CanMove(input))
                 {
+                    PlayPushSound();
                     currentMovement = StartCoroutine(PushAndMove(po, input, destination));
                     return;
                 }
@@ -80,6 +83,7 @@ public class TilePlayerController : MonoBehaviour
         if (!Physics2D.OverlapCircle(destination, 0.1f, obstacleLayer | pushableLayer))
         {
             float speed = Input.GetKey(KeyCode.X) ? runSpeed : walkSpeed;
+            PlayFootstepSound();
             currentMovement = StartCoroutine(MoveTo(destination, speed));
         }
     }
@@ -129,6 +133,22 @@ public class TilePlayerController : MonoBehaviour
         if (animator != null)
         {
             animator.SetBool("isMoving", false);
+        }
+    }
+
+    void PlayFootstepSound()
+    {
+        if (footstepAudioSource != null && !footstepAudioSource.isPlaying)
+        {
+            footstepAudioSource.Play();
+        }
+    }
+
+    void PlayPushSound()
+    {
+        if (pushAudioSource != null)
+        {
+            pushAudioSource.Play();
         }
     }
 }
