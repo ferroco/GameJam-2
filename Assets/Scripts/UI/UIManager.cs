@@ -9,6 +9,8 @@ public class UIManager : MonoBehaviour
     [Header("UI Elements")]
     [SerializeField] private GameObject _UIContainerMenu;
     [SerializeField] private GameObject _UIContainerJuego;
+    private UISoundManager _UISoundManager;
+    private MusicSoundManager _musicSoundManager;
 
     private bool _isRuntimeOnMenu { get; set; }
     public bool isRuntimeOnMenu // Cambiar al booleano activa o desactiva los menús
@@ -26,6 +28,8 @@ public class UIManager : MonoBehaviour
     }
     void Start()
     {
+        _UISoundManager = gameObject.GetComponent<UISoundManager>();
+        _musicSoundManager = gameObject.GetComponent<MusicSoundManager>();
         isRuntimeOnMenu = true;
     }
 
@@ -39,7 +43,7 @@ public class UIManager : MonoBehaviour
     {
         _UIContainerJuego.GetComponent<UIContainerJuego>().LevelCountdownTextChange(newValue);
     }
-    
+
     // Función para que el booleano desactive o active ciertos contenedores del UI cuando cambie.
     private void UISelectorSwitch(bool localIsRuntimeOnMenu)
     {
@@ -54,4 +58,11 @@ public class UIManager : MonoBehaviour
             _UIContainerJuego.SetActive(false);
         }
     }
+
+    // Reproduce sonido sfx
+
+    public void PlaySoundOnButtonClick()
+    {
+    }
+    
 }
