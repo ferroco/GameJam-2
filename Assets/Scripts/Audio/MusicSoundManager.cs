@@ -5,7 +5,6 @@ public class MusicSoundManager : MonoBehaviour
 {
     [Header("Music")]
     [SerializeField] private UIMusicList[] _musicList;
-    private static MusicSoundManager instance;
     private AudioSource _audioSource;
     private AudioClip _musicOnPlay;
 
@@ -14,21 +13,21 @@ public class MusicSoundManager : MonoBehaviour
         _audioSource = GetComponent<AudioSource>();
     }
 
-    public static void SelectMusicToPlay(int musicIndex = 0)
+    public  void SelectMusicToPlay(int musicIndex = 0)
     {
-        AudioClip clip = instance._musicList[musicIndex].Music;
-        instance._musicOnPlay = clip;
+        AudioClip clip = _musicList[musicIndex].Music;
+        _musicOnPlay = clip;
     }
-    public static void PlayMusicPlayer()
+    public void PlayMusicPlayer()
     {
-        instance._audioSource.clip = instance._musicOnPlay;
-        instance._audioSource.loop = true;
-        instance._audioSource.Play();
+        _audioSource.clip = _musicOnPlay;
+        _audioSource.loop = true;
+        _audioSource.Play();
     }
-    public static void SetVolumeMusicPlayer(float volume) { instance._audioSource.volume = volume; }
-    public static void PauseMusicPlayer() { instance._audioSource.Pause(); }
-    public static void UnpauseMusicPlayer() { instance._audioSource.UnPause(); }
-    public static void StopMusicPlayer() { instance._audioSource.Stop(); }
+    public void SetVolumeMusicPlayer(float volume) { _audioSource.volume = volume; }
+    public void PauseMusicPlayer() { _audioSource.Pause(); }
+    public void UnpauseMusicPlayer() { _audioSource.UnPause(); }
+    public void StopMusicPlayer() { _audioSource.Stop(); }
 
 }
 

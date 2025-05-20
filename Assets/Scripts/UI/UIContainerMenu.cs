@@ -9,6 +9,7 @@ public class UIContainerMenu : MonoBehaviour
     [SerializeField] private GameObject _ContainerPrincipal;
     [SerializeField] private GameObject _ContainerCreditos;
     [SerializeField] private GameObject _ContainerSalidaSelector;
+    [SerializeField] private GameObject _TextTitulo;
     public enum MainMenuSwitch
     {
         Main,
@@ -29,6 +30,7 @@ public class UIContainerMenu : MonoBehaviour
         _ContainerPrincipal.SetActive(true);
         _ContainerCreditos.SetActive(false);
         _ContainerSalidaSelector.SetActive(false);
+        _TextTitulo.SetActive(true);
     }
 
      public void MenuUISwitchMenuCall(int valueInt)
@@ -55,11 +57,13 @@ public class UIContainerMenu : MonoBehaviour
                 _ContainerPrincipal.SetActive(localTrueBool);
                 _ContainerCreditos.SetActive(!localTrueBool);
                 _ContainerSalidaSelector.SetActive(!localTrueBool);
+                _TextTitulo.SetActive(localTrueBool);
                 break;
             case MainMenuSwitch.Credits:
                 _ContainerPrincipal.SetActive(!localTrueBool);
                 _ContainerCreditos.SetActive(localTrueBool);
                 _ContainerSalidaSelector.SetActive(!localTrueBool);
+                _TextTitulo.SetActive(!localTrueBool);
                 break;
             case MainMenuSwitch.ToExit:
                 _ContainerPrincipal.SetActive(!localTrueBool);

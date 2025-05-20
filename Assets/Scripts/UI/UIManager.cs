@@ -11,6 +11,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject _UIContainerJuego;
     private UISoundManager _UISoundManager;
     private MusicSoundManager _musicSoundManager;
+    private GameSoundManager _gameSoundManager;
 
     private bool _isRuntimeOnMenu { get; set; }
     public bool isRuntimeOnMenu // Cambiar al booleano activa o desactiva los menús
@@ -30,7 +31,12 @@ public class UIManager : MonoBehaviour
     {
         _UISoundManager = gameObject.GetComponent<UISoundManager>();
         _musicSoundManager = gameObject.GetComponent<MusicSoundManager>();
+        _gameSoundManager = gameObject.GetComponent<GameSoundManager>();
+
         isRuntimeOnMenu = true;
+        _musicSoundManager.SelectMusicToPlay(0);
+        _musicSoundManager.SetVolumeMusicPlayer(.2f);
+        _musicSoundManager.PlayMusicPlayer();
     }
 
     // Funciones cambian el nombre del texto del título y tiempo limite respectivo
@@ -63,6 +69,7 @@ public class UIManager : MonoBehaviour
 
     public void PlaySoundOnButtonClick()
     {
+        _UISoundManager.PlayUISound(0, 0.2f);
     }
     
 }

@@ -1,11 +1,11 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class UISoundManager : MonoBehaviour
 {
     [Header("SFX")]
     [SerializeField] private UISoundList[] _soundList;
-    private static UISoundManager instance;
     private AudioSource _audioSource;
 
     void Start()
@@ -13,10 +13,10 @@ public class UISoundManager : MonoBehaviour
         _audioSource = GetComponent<AudioSource>();
     }
 
-    public static void PlayUISound(int index, float volume = 1)
+    public void PlayUISound(int index = 0, float volume = .2f)
     {
-        AudioClip clip = instance._soundList[index].Sound;
-        instance._audioSource.PlayOneShot(clip, volume);
+        AudioClip clip = _soundList[index].Sound;
+        _audioSource.PlayOneShot(clip, volume);
     }
 }
 
