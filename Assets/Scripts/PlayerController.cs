@@ -15,21 +15,28 @@ public class TilePlayerController : MonoBehaviour
 
     private void Awake()
     {
-        animator = GetComponent<Animator>();
+       // animator = GetComponent<Animator>();
     }
 
+    void Start()
+    {
+        animator = GetComponentInChildren<Animator>();
+    }
     void Update()
     {
         if (!isMoving)
         {
             input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
             if (input.x != 0) input.y = 0;
+            if(input.x == 0 && input.y == 0){ animator.SetBool("isMoving", false); }else
+            {animator.SetBool("isMoving", true);}
 
+            Debug.Log(input.x + " " + input.y);
             if (input != Vector2.zero)
             {
                 animator.SetFloat("moveX", input.x);
                 animator.SetFloat("moveY", input.y);
-                Vector3 destination = transform.position + new Vector3(input.x, input.y, 0f) * tileSize;
+                Vector3 destination = transform.position + new Vector3(input.x, input.y, 0f)*tileSize ;
 
                 // Check for pushable object
                 Collider2D pushable = Physics2D.OverlapCircle(destination, 0.1f, pushableLayer);
@@ -51,7 +58,7 @@ public class TilePlayerController : MonoBehaviour
                 }
             }
         }
-        animator.SetBool("isMoving", isMoving);
+       // animator.SetBool("isMoving", isMoving);
     }
 
     IEnumerator PushAndMove(PushableObject obj, Vector2 dir, Vector3 playerDestination)
