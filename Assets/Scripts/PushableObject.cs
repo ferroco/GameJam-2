@@ -9,25 +9,34 @@ public class PushableObject : MonoBehaviour
 
     private bool isMoving = false;
 
+    /// <summary>
+    /// Verifica si el objeto puede moverse en la dirección deseada sin colisionar con obstáculos.
+    /// </summary>
     public bool CanMove(Vector2 direction)
     {
-        Vector3 destination = transform.position + (Vector3)(direction * 0.5f)/3;
+        if (isMoving) return false;
 
-        // Check if the destination has any obstacle or another pushable
-        return !Physics2D.OverlapCircle(destination, 0.1f, obstacleLayer);
+        Vector3 destination = transform.position + (Vector3)(direction * tileSize);
+        // Revisa si hay colisión con obstáculo en el destino
+        return !Physics2D.OverlapCircle(destination, 0.05f, obstacleLayer);
     }
 
+    /// <summary>
+    /// Mueve el objeto suavemente hacia la dirección especificada, si es posible.
+    /// </summary>
     public IEnumerator Move(Vector2 direction)
     {
-        isMoving = true;
-        Vector3 destination = transform.position + (Vector3)(direction * 0.5f)/3;
+        if (isMoving) yield break;
 
-        /*  while ((destination - transform.position).sqrMagnitude > Mathf.Epsilon)
-          {
-              transform.position = Vector3.MoveTowards(transform.position, destination, moveSpeed * Time.deltaTime);
-              yield return null;
-          }*/
-        while ((destination - transform.position).sqrMagnitude > Mathf.Epsilon)
+        Vector3 destination = transform.position + (Vector3)(direction * tileSize);
+
+        // Verifica otra vez antes de mover (por si CanMove no se llamó antes)
+        if (Physics2D.OverlapCircle(destination, 0.05f, obstacleLayer))
+            yield break;
+
+        isMoving = true;
+
+        while ((destination - transform.position).sqrMagnitude > 0.0001f)
         {
             transform.position = Vector3.MoveTowards(transform.position, destination, moveSpeed * Time.deltaTime);
             yield return null;
