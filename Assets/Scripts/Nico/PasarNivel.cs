@@ -11,6 +11,7 @@ public class PasarNivel : MonoBehaviour
     {
         anim = puerta.GetComponent<Animator>();
         boxCollider = puerta.GetComponent<BoxCollider2D>();
+        boxCollider.isTrigger = true;
         boxCollider.enabled = false;
         energiaPuerta = 0;
     }
@@ -21,6 +22,7 @@ public class PasarNivel : MonoBehaviour
         if (energiaPuerta >= 2)
         {
             boxCollider.enabled = true;
+            boxCollider.isTrigger = true;
             anim.SetBool("doorOpen", true);
         }
     }
