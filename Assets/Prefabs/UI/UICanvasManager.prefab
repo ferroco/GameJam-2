@@ -514,8 +514,6 @@ MonoBehaviour:
   _soundList:
   - name: Click
     _sound: {fileID: 8300000, guid: 29c1e0716c7beef40b75138b8fc3ee7b, type: 3}
-  - name: Click
-    _sound: {fileID: 0}
 --- !u!114 &1150284054843706553
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -545,7 +543,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b4fcdbf2854ba34d8b91e7c9614a24f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _soundList: []
+  _soundList:
+  - name: NormalWalk
+    sound: {fileID: 8300000, guid: 9b76d5a2bf129b0499fe0b2d8f75a390, type: 3}
+  - name: Pushing
+    sound: {fileID: 8300000, guid: dc71c79674f0e9641b0c497d128b4700, type: 3}
+  delaySpeed: 0.3
+  volume: 0.3
 --- !u!1 &6365764038071389076
 GameObject:
   m_ObjectHideFlags: 0

@@ -44,7 +44,6 @@ public class UIManager : MonoBehaviour
     {
         _UIContainerJuego.GetComponent<UIContainerJuego>().LevelTextChange(newValue);
     }
-
     public void UpdateLevelCountdown(int newValue)
     {
         _UIContainerJuego.GetComponent<UIContainerJuego>().LevelCountdownTextChange(newValue);
@@ -65,11 +64,11 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    // Reproduce sonido sfx
+    // Reproduce sonido sfx de los botones
+    public void PlaySoundOnButtonClick() { _UISoundManager.PlayUISound(0, 0.2f); }
 
-    public void PlaySoundOnButtonClick()
-    {
-        _UISoundManager.PlayUISound(0, 0.2f);
-    }
+    // Reproduce sonido de caminar según la entrada booleana (walking si camina, pushing si empuja)
+    public void SetMovementValueWalk(bool isWalking) { _gameSoundManager.isMoving = isWalking; }
+    public void SetMovementValuePush(bool isPushing) { _gameSoundManager.isPushingObject = isPushing; }
     
 }

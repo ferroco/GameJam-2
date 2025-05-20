@@ -1,47 +1,53 @@
 using System;
+using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public enum GameSoundType
-{
-    STEPS,
-    RUN,
-    PUSH
-}
 public class GameSoundManager : MonoBehaviour
 {
     [SerializeField] private GameSoundList[] _soundList;
-    private static GameSoundManager instance;
+    private IEnumerator _PlayDelayedOnMove;
     private AudioSource _audioSource;
+    public float delaySpeed = 0.3f, volume = 0.3f;
+    private bool _isMoving, _isPushingObject;
+    public bool isMoving // el setter activa o desactiva la co-rutina según su valor (se llama desde un método en UIManager)
+    {
+        get { return _isMoving; }
+        set
+        {
+            _isMoving = value;
+            if (_isMoving) { StartCoroutine(nameof(_PlayDelayedOnMove)); }
+            else { StopCoroutine(nameof(_PlayDelayedOnMove)); }
+        }
+    }
+    public bool isPushingObject
+    {
+        get { return _isPushingObject; }
+        set => _isPushingObject = value;
+    }
 
     void Start()
     {
         _audioSource = GetComponent<AudioSource>();
+        _PlayDelayedOnMove = PlayDelayed(delaySpeed);
     }
 
-    public static void PlayRandomGameSound(GameSoundType soundType, float volume = 1)
-    {
-        AudioClip[] clips = instance._soundList[(int)soundType].Sounds;
-        AudioClip randomClip = clips[UnityEngine.Random.Range(0, clips.Length)];
-        instance._audioSource.PlayOneShot(randomClip, volume);
-    }
+    IEnumerator PlayDelayed(float delay) {
+        AudioClip clip;
+        if (_isPushingObject) { clip = _soundList[1].Sound; }
+        else { clip = _soundList[0].Sound; }
 
-#if UNITY_EDITOR
-    private void OnEnable()
-    {
-        string[] names = Enum.GetNames(typeof(GameSoundType));
-        Array.Resize(ref _soundList, names.Length);
-        for (int i = 0; i < _soundList.Length; i++)
-        {
-            _soundList[i].name = names[i];
-        }
+        _audioSource.pitch = UnityEngine.Random.Range(.95f, 1.05f);
+        _audioSource.PlayOneShot(clip, volume);
+        _audioSource.pitch = 1;
+        yield return new WaitForSeconds(delay); 
     }
-#endif
 }
 
 [Serializable]
 public struct GameSoundList
 {
-    public AudioClip[] Sounds { get => sounds; }
+    public AudioClip Sound { get => sound; }
     public string name;
-    [SerializeReference] private AudioClip[] sounds;
+    [SerializeReference] private AudioClip sound;
 }
